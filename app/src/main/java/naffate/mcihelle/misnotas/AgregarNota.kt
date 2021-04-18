@@ -20,7 +20,6 @@ class AgregarNota : AppCompatActivity() {
 
         btn_guardar.setOnClickListener{
             guardarNota()
-            finish()
         }
 
 

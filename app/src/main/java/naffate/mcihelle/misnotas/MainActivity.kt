@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        leerNotas()
 
         fab.setOnClickListener {
             var intent = Intent(this, AgregarNota::class.java)
