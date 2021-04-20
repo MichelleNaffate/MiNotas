@@ -1,14 +1,13 @@
 package naffate.mcihelle.misnotas
 
-import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.BaseAdapter
+import android.widget.AdapterView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.trace
+import kotlinx.android.synthetic.main.activity_agregar_nota.*
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_nota.*
 import kotlinx.android.synthetic.main.activity_nota.view.*
 import java.io.*
 
@@ -22,12 +21,20 @@ class MainActivity : AppCompatActivity() {
 
         fab.setOnClickListener {
             var intent = Intent(this, AgregarNota::class.java)
-            startActivityForResult(intent,123)
+            startActivityForResult(intent, 123)
         }
 
-        adaptador = AdaptadorNotas(this,notas)
+        adaptador = AdaptadorNotas(this, notas)
         listviw.adapter = adaptador
-
+listviw.setOnItemClickListener(AdapterView.OnItemClickListener { parent, view, position, id ->
+    var nota = notas[position]
+    var titulo2 = nota.titulo
+    var cuerpo = nota.contenido
+    var intent = Intent(this, AgregarNota::class.java)
+    intent.putExtra("titulo", titulo2)
+    intent.putExtra("contenido", cuerpo)
+    startActivityForResult(intent, 123)
+})
     }
     private fun leerNotas(){
         notas.clear()
@@ -60,7 +67,7 @@ class MainActivity : AppCompatActivity() {
         di.close()
         fis.close()
 
-        var titulo= archivo.name.substring(0,archivo.name.length-4)
+        var titulo= archivo.name.substring(0, archivo.name.length - 4)
 
         var nota=Nota(titulo, myData)
         notas.add(nota)

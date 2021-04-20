@@ -2,6 +2,7 @@ package naffate.mcihelle.misnotas
 
 import android.Manifest
 import android.app.Activity
+import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,6 +10,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_agregar_nota.*
+import kotlinx.android.synthetic.main.activity_nota.*
 import java.io.File
 import java.io.FileOutputStream
 
@@ -17,12 +19,26 @@ class AgregarNota : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_agregar_nota)
+        mostrarTexto()
+
 
         btn_guardar.setOnClickListener{
             guardarNota()
+
         }
 
+    }
+    fun mostrarTexto(){
+        var Bundle = intent.extras
 
+        if (Bundle != null){
+            var titulo = Bundle.getString("titulo")
+            var contenido= Bundle.getString("contenido")
+
+            et_titulo.setText(titulo)
+            et_contenido.setText(contenido)
+
+        }
     }
 
     private fun guardarNota() {
